@@ -87,10 +87,10 @@ RCT_EXPORT_METHOD(openNewSinaSSOWithRedirectURL:(NSString*)redirectUrl)
 
 RCT_EXPORT_METHOD(setQQData:(NSDictionary*)dic)
 {
-    
+
     RCTImageSource* source = [RCTConvert RCTImageSource:[dic objectForKey:@"imageSource"]];
     __weak RCTUmengShare *weakSelf = self;
-    [self.bridge.imageLoader loadImageWithTag:source.imageURL.absoluteString
+    [self.bridge.imageLoader loadImageWithURLRequest:source.imageURL.absoluteString
                                      callback:^(NSError *error, UIImage *image) {
                                          if(image == nil)
                                          {
@@ -106,16 +106,16 @@ RCT_EXPORT_METHOD(setQQData:(NSDictionary*)dic)
                                                  [UMSocialData defaultData].extConfig.qqData.shareImage = image;
                                              }
                                          });
-                                         
+
                                      }];
-    
+
 }
 
 RCT_EXPORT_METHOD(setQzoneData:(NSDictionary*)dic)
 {
     RCTImageSource* source = [RCTConvert RCTImageSource:[dic objectForKey:@"imageSource"]];
     __weak RCTUmengShare *weakSelf = self;
-    [self.bridge.imageLoader loadImageWithTag:source.imageURL.absoluteString
+    [self.bridge.imageLoader loadImageWithURLRequest:source.imageURL.absoluteString
                                      callback:^(NSError *error, UIImage *image) {
                                          if(image == nil)
                                          {
@@ -130,7 +130,7 @@ RCT_EXPORT_METHOD(setQzoneData:(NSDictionary*)dic)
                                                  [UMSocialData defaultData].extConfig.qzoneData.shareImage = image;
                                              }
                                          });
-                                         
+
                                      }];
 }
 
@@ -138,7 +138,7 @@ RCT_EXPORT_METHOD(setWechatSessionData:(NSDictionary*)dic)
 {
     RCTImageSource* source = [RCTConvert RCTImageSource:[dic objectForKey:@"imageSource"]];
     __weak RCTUmengShare *weakSelf = self;
-    [self.bridge.imageLoader loadImageWithTag:source.imageURL.absoluteString
+    [self.bridge.imageLoader loadImageWithURLRequest:source.imageURL.absoluteString
                                      callback:^(NSError *error, UIImage *image) {
                                          if(image == nil)
                                          {
@@ -154,7 +154,7 @@ RCT_EXPORT_METHOD(setWechatSessionData:(NSDictionary*)dic)
                                                  [UMSocialData defaultData].extConfig.wechatSessionData.shareImage = image;
                                              }
                                          });
-                                         
+
                                      }];
 }
 
@@ -162,7 +162,7 @@ RCT_EXPORT_METHOD(setWechatTimelineData:(NSDictionary*)dic)
 {
     RCTImageSource* source = [RCTConvert RCTImageSource:[dic objectForKey:@"imageSource"]];
     __weak RCTUmengShare *weakSelf = self;
-    [self.bridge.imageLoader loadImageWithTag:source.imageURL.absoluteString
+    [self.bridge.imageLoader loadImageWithURLRequest:source.imageURL.absoluteString
                                      callback:^(NSError *error, UIImage *image) {
                                          if(image == nil)
                                          {
@@ -178,7 +178,7 @@ RCT_EXPORT_METHOD(setWechatTimelineData:(NSDictionary*)dic)
                                                  [UMSocialData defaultData].extConfig.wechatTimelineData.shareImage = image;
                                              }
                                          });
-                                         
+
                                      }];
 }
 
@@ -186,7 +186,7 @@ RCT_EXPORT_METHOD(setSinaData:(NSDictionary*)dic)
 {
     RCTImageSource* source = [RCTConvert RCTImageSource:[dic objectForKey:@"imageSource"]];
     __weak RCTUmengShare *weakSelf = self;
-    [self.bridge.imageLoader loadImageWithTag:source.imageURL.absoluteString
+    [self.bridge.imageLoader loadImageWithURLRequest:source.imageURL.absoluteString
                                      callback:^(NSError *error, UIImage *image) {
                                          if(image == nil)
                                          {
@@ -199,13 +199,13 @@ RCT_EXPORT_METHOD(setSinaData:(NSDictionary*)dic)
                                                  [UMSocialData defaultData].extConfig.sinaData.shareImage = image;
                                              }
                                          });
-                                         
+
                                      }];
 }
 
 RCT_EXPORT_METHOD(presentSnsIconSheetView:(NSString*)content imageSource:(RCTImageSource*)imageSource)
 {
-    [self.bridge.imageLoader loadImageWithTag:imageSource.imageURL.absoluteString
+    [self.bridge.imageLoader loadImageWithURLRequest:imageSource.imageURL.absoluteString
                                      callback:^(NSError *error, UIImage *image) {
                                          UIImage* tempImage = image;
                                          if(error)
@@ -220,8 +220,8 @@ RCT_EXPORT_METHOD(presentSnsIconSheetView:(NSString*)content imageSource:(RCTIma
                                                                          shareToSnsNames:@[UMShareToWechatSession,UMShareToWechatTimeline,UMShareToQQ,UMShareToQzone,UMShareToSina]
                                                                                 delegate:nil];
                                          });
-                                         
+
                                      }];
-    
+
 }
 @end
