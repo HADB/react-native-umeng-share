@@ -186,6 +186,31 @@ RCT_EXPORT_METHOD(setWechatTimelineData:(NSDictionary*)dic)
                                      }];
 }
 
+RCT_EXPORT_METHOD(setWechatFavoriteData:(NSDictionary*)dic)
+{
+    RCTImageSource* source = [RCTConvert RCTImageSource:[dic objectForKey:@"imageSource"]];
+    __weak RCTUmengShare *weakSelf = self;
+    NSURLRequest *urlRequest = [NSURLRequest requestWithURL:[NSURL URLWithString:source.imageURL.absoluteString]];
+    [self.bridge.imageLoader loadImageWithURLRequest:urlRequest
+                                     callback:^(NSError *error, UIImage *image) {
+                                         if(image == nil)
+                                         {
+                                             return;
+                                         }
+                                         dispatch_async(dispatch_get_main_queue(), ^{
+                                             [UMSocialData defaultData].extConfig.wechatFavoriteData.url= [[dic objectForKey:@"url"] stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+                                             [UMSocialData defaultData].extConfig.wechatFavoriteData.title= [dic objectForKey:@"title"];
+                                             [UMSocialData defaultData].extConfig.wechatFavoriteData.shareText= [dic objectForKey:@"content"];
+                                             [UMSocialData defaultData].extConfig.wechatFavoriteData.wxMessageType = UMSocialWXMessageTypeWeb;
+                                             if(error == nil)
+                                             {
+                                                 [UMSocialData defaultData].extConfig.wechatFavoriteData.shareImage = image;
+                                             }
+                                         });
+
+                                     }];
+}
+
 RCT_EXPORT_METHOD(setSinaData:(NSDictionary*)dic)
 {
     RCTImageSource* source = [RCTConvert RCTImageSource:[dic objectForKey:@"imageSource"]];
@@ -223,7 +248,7 @@ RCT_EXPORT_METHOD(presentSnsIconSheetView:(NSString*)content imageSource:(RCTIma
                                                                                   appKey:self.umengAppKey
                                                                                shareText:content
                                                                               shareImage:tempImage
-                                                                         shareToSnsNames:@[UMShareToWechatSession,UMShareToWechatTimeline,UMShareToQQ,UMShareToQzone,UMShareToSina]
+                                                                         shareToSnsNames:@[UMShareToWechatSession,UMShareToWechatTimeline,UMShareToWechatFavorite,UMShareToQQ,UMShareToQzone,UMShareToSina,UMShareToEmail,UMShareToSms]
                                                                                 delegate:nil];
                                          });
 
