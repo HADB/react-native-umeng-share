@@ -90,7 +90,8 @@ RCT_EXPORT_METHOD(setQQData:(NSDictionary*)dic)
 
     RCTImageSource* source = [RCTConvert RCTImageSource:[dic objectForKey:@"imageSource"]];
     __weak RCTUmengShare *weakSelf = self;
-    [self.bridge.imageLoader loadImageWithURLRequest:source.imageURL.absoluteString
+    NSURLRequest *urlRequest = [NSURLRequest requestWithURL:[NSURL URLWithString:source.imageURL.absoluteString]];
+    [self.bridge.imageLoader loadImageWithURLRequest:urlRequest
                                      callback:^(NSError *error, UIImage *image) {
                                          if(image == nil)
                                          {
@@ -115,7 +116,8 @@ RCT_EXPORT_METHOD(setQzoneData:(NSDictionary*)dic)
 {
     RCTImageSource* source = [RCTConvert RCTImageSource:[dic objectForKey:@"imageSource"]];
     __weak RCTUmengShare *weakSelf = self;
-    [self.bridge.imageLoader loadImageWithURLRequest:source.imageURL.absoluteString
+    NSURLRequest *urlRequest = [NSURLRequest requestWithURL:[NSURL URLWithString:source.imageURL.absoluteString]];
+    [self.bridge.imageLoader loadImageWithURLRequest:urlRequest
                                      callback:^(NSError *error, UIImage *image) {
                                          if(image == nil)
                                          {
@@ -138,7 +140,8 @@ RCT_EXPORT_METHOD(setWechatSessionData:(NSDictionary*)dic)
 {
     RCTImageSource* source = [RCTConvert RCTImageSource:[dic objectForKey:@"imageSource"]];
     __weak RCTUmengShare *weakSelf = self;
-    [self.bridge.imageLoader loadImageWithURLRequest:source.imageURL.absoluteString
+    NSURLRequest *urlRequest = [NSURLRequest requestWithURL:[NSURL URLWithString:source.imageURL.absoluteString]];
+    [self.bridge.imageLoader loadImageWithURLRequest:urlRequest
                                      callback:^(NSError *error, UIImage *image) {
                                          if(image == nil)
                                          {
@@ -162,7 +165,8 @@ RCT_EXPORT_METHOD(setWechatTimelineData:(NSDictionary*)dic)
 {
     RCTImageSource* source = [RCTConvert RCTImageSource:[dic objectForKey:@"imageSource"]];
     __weak RCTUmengShare *weakSelf = self;
-    [self.bridge.imageLoader loadImageWithURLRequest:source.imageURL.absoluteString
+    NSURLRequest *urlRequest = [NSURLRequest requestWithURL:[NSURL URLWithString:source.imageURL.absoluteString]];
+    [self.bridge.imageLoader loadImageWithURLRequest:urlRequest
                                      callback:^(NSError *error, UIImage *image) {
                                          if(image == nil)
                                          {
@@ -186,7 +190,8 @@ RCT_EXPORT_METHOD(setSinaData:(NSDictionary*)dic)
 {
     RCTImageSource* source = [RCTConvert RCTImageSource:[dic objectForKey:@"imageSource"]];
     __weak RCTUmengShare *weakSelf = self;
-    [self.bridge.imageLoader loadImageWithURLRequest:source.imageURL.absoluteString
+    NSURLRequest *urlRequest = [NSURLRequest requestWithURL:[NSURL URLWithString:source.imageURL.absoluteString]];
+    [self.bridge.imageLoader loadImageWithURLRequest:urlRequest
                                      callback:^(NSError *error, UIImage *image) {
                                          if(image == nil)
                                          {
@@ -205,7 +210,8 @@ RCT_EXPORT_METHOD(setSinaData:(NSDictionary*)dic)
 
 RCT_EXPORT_METHOD(presentSnsIconSheetView:(NSString*)content imageSource:(RCTImageSource*)imageSource)
 {
-    [self.bridge.imageLoader loadImageWithURLRequest:imageSource.imageURL.absoluteString
+    NSURLRequest *urlRequest = [NSURLRequest requestWithURL:[NSURL URLWithString:imageSource.imageURL.absoluteString]];
+    [self.bridge.imageLoader loadImageWithURLRequest:urlRequest
                                      callback:^(NSError *error, UIImage *image) {
                                          UIImage* tempImage = image;
                                          if(error)
