@@ -198,7 +198,7 @@ RCT_EXPORT_METHOD(setSinaData:(NSDictionary*)dic)
                                              return;
                                          }
                                          dispatch_async(dispatch_get_main_queue(), ^{
-                                             [UMSocialData defaultData].extConfig.sinaData.shareText= [NSString stringWithFormat:@"%@-%@",[dic objectForKey:@"content"],[dic objectForKey:@"url"]];
+                                             [UMSocialData defaultData].extConfig.sinaData.shareText= [NSString stringWithFormat:@"%@ %@ %@",[dic objectForKey:@"title"],[dic objectForKey:@"content"],[dic objectForKey:@"url"]];
                                              if(error == nil)
                                              {
                                                  [UMSocialData defaultData].extConfig.sinaData.shareImage = image;
