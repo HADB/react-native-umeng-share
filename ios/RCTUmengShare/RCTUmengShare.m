@@ -85,6 +85,11 @@ RCT_EXPORT_METHOD(openNewSinaSSOWithRedirectURL:(NSString*)redirectUrl)
     [UMSocialSinaSSOHandler openNewSinaSSOWithRedirectURL:redirectUrl];
 }
 
+RCT_EXPORT_METHOD(hiddenNotInstallPlatforms)
+{
+    [UMSocialConfig hiddenNotInstallPlatforms:@[UMShareToWechatSession,UMShareToWechatTimeline,UMShareToWechatFavorite,UMShareToQQ,UMShareToQzone,UMShareToSina,UMShareToEmail,UMShareToSms]];
+}
+
 RCT_EXPORT_METHOD(setQQData:(NSDictionary*)dic)
 {
 

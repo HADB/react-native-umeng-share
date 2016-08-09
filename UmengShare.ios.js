@@ -20,6 +20,10 @@ export default class UmengShare {
         umengClient.openNewSinaSSOWithAppKey(appKey, secret, url);
     }
 
+    static hiddenNotInstallPlatforms() {
+        umengClient.hiddenNotInstallPlatforms();
+    }
+
     static setQQData(dic) {
         if (dic.imageSource !== undefined) {
             dic.imageSource = resolveAssetSource(dic.imageSource)
