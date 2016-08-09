@@ -15,6 +15,8 @@
 #import "RCTImageLoader.h"
 #import "RCTImageSource.h"
 #import "RCTConvert.h"
+#import "WXApi.h"
+
 static RCTUmengShare *_instance = nil;
 
 @interface RCTUmengShare ()<UMSocialUIDelegate>
@@ -87,7 +89,12 @@ RCT_EXPORT_METHOD(openNewSinaSSOWithRedirectURL:(NSString*)redirectUrl)
 
 RCT_EXPORT_METHOD(hiddenNotInstallPlatforms)
 {
-    [UMSocialConfig hiddenNotInstallPlatforms:@[UMShareToWechatSession,UMShareToWechatTimeline,UMShareToWechatFavorite,UMShareToQQ,UMShareToQzone,UMShareToSina]];
+    if (![WXApi isWXAppInstalled]) {
+        NSLog(@"没安装微信");
+        //ShareToWechatFavorite需要单独判断，不然总是会隐藏
+        [UMSocialConfig hiddenNotInstallPlatforms:@[UMShareToWechatFavorite]];
+    }
+    [UMSocialConfig hiddenNotInstallPlatforms:@[UMShareToWechatSession,UMShareToWechatTimeline,UMShareToQQ,UMShareToQzone,UMShareToSina]];
 }
 
 RCT_EXPORT_METHOD(setQQData:(NSDictionary*)dic)
@@ -97,23 +104,23 @@ RCT_EXPORT_METHOD(setQQData:(NSDictionary*)dic)
     __weak RCTUmengShare *weakSelf = self;
     NSURLRequest *urlRequest = [NSURLRequest requestWithURL:[NSURL URLWithString:source.imageURL.absoluteString]];
     [self.bridge.imageLoader loadImageWithURLRequest:urlRequest
-                                     callback:^(NSError *error, UIImage *image) {
-                                         if(image == nil)
-                                         {
-                                             return;
-                                         }
-                                         dispatch_async(dispatch_get_main_queue(), ^{
-                                             [UMSocialData defaultData].extConfig.qqData.url= [[dic objectForKey:@"url"] stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
-                                             [UMSocialData defaultData].extConfig.qqData.title= [dic objectForKey:@"title"];
-                                             [UMSocialData defaultData].extConfig.qqData.shareText= [dic objectForKey:@"content"];
-                                             [UMSocialData defaultData].extConfig.qqData.qqMessageType = UMSocialQQMessageTypeDefault;
-                                             if(error == nil)
-                                             {
-                                                 [UMSocialData defaultData].extConfig.qqData.shareImage = image;
-                                             }
-                                         });
+                                            callback:^(NSError *error, UIImage *image) {
+                                                if(image == nil)
+                                                {
+                                                    return;
+                                                }
+                                                dispatch_async(dispatch_get_main_queue(), ^{
+                                                    [UMSocialData defaultData].extConfig.qqData.url= [[dic objectForKey:@"url"] stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+                                                    [UMSocialData defaultData].extConfig.qqData.title= [dic objectForKey:@"title"];
+                                                    [UMSocialData defaultData].extConfig.qqData.shareText= [dic objectForKey:@"content"];
+                                                    [UMSocialData defaultData].extConfig.qqData.qqMessageType = UMSocialQQMessageTypeDefault;
+                                                    if(error == nil)
+                                                    {
+                                                        [UMSocialData defaultData].extConfig.qqData.shareImage = image;
+                                                    }
+                                                });
 
-                                     }];
+                                            }];
 
 }
 
@@ -123,22 +130,22 @@ RCT_EXPORT_METHOD(setQzoneData:(NSDictionary*)dic)
     __weak RCTUmengShare *weakSelf = self;
     NSURLRequest *urlRequest = [NSURLRequest requestWithURL:[NSURL URLWithString:source.imageURL.absoluteString]];
     [self.bridge.imageLoader loadImageWithURLRequest:urlRequest
-                                     callback:^(NSError *error, UIImage *image) {
-                                         if(image == nil)
-                                         {
-                                             return;
-                                         }
-                                         dispatch_async(dispatch_get_main_queue(), ^{
-                                             [UMSocialData defaultData].extConfig.qzoneData.url= [[dic objectForKey:@"url"] stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
-                                             [UMSocialData defaultData].extConfig.qzoneData.title= [dic objectForKey:@"title"];
-                                             [UMSocialData defaultData].extConfig.qzoneData.shareText= [dic objectForKey:@"content"];
-                                             if(error == nil)
-                                             {
-                                                 [UMSocialData defaultData].extConfig.qzoneData.shareImage = image;
-                                             }
-                                         });
+                                            callback:^(NSError *error, UIImage *image) {
+                                                if(image == nil)
+                                                {
+                                                    return;
+                                                }
+                                                dispatch_async(dispatch_get_main_queue(), ^{
+                                                    [UMSocialData defaultData].extConfig.qzoneData.url= [[dic objectForKey:@"url"] stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+                                                    [UMSocialData defaultData].extConfig.qzoneData.title= [dic objectForKey:@"title"];
+                                                    [UMSocialData defaultData].extConfig.qzoneData.shareText= [dic objectForKey:@"content"];
+                                                    if(error == nil)
+                                                    {
+                                                        [UMSocialData defaultData].extConfig.qzoneData.shareImage = image;
+                                                    }
+                                                });
 
-                                     }];
+                                            }];
 }
 
 RCT_EXPORT_METHOD(setWechatSessionData:(NSDictionary*)dic)
@@ -147,23 +154,23 @@ RCT_EXPORT_METHOD(setWechatSessionData:(NSDictionary*)dic)
     __weak RCTUmengShare *weakSelf = self;
     NSURLRequest *urlRequest = [NSURLRequest requestWithURL:[NSURL URLWithString:source.imageURL.absoluteString]];
     [self.bridge.imageLoader loadImageWithURLRequest:urlRequest
-                                     callback:^(NSError *error, UIImage *image) {
-                                         if(image == nil)
-                                         {
-                                             return;
-                                         }
-                                         dispatch_async(dispatch_get_main_queue(), ^{
-                                             [UMSocialData defaultData].extConfig.wechatSessionData.url= [[dic objectForKey:@"url"] stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
-                                             [UMSocialData defaultData].extConfig.wechatSessionData.title= [dic objectForKey:@"title"];
-                                             [UMSocialData defaultData].extConfig.wechatSessionData.shareText= [dic objectForKey:@"content"];
-                                             [UMSocialData defaultData].extConfig.wechatSessionData.wxMessageType = UMSocialWXMessageTypeWeb;
-                                             if(error == nil)
-                                             {
-                                                 [UMSocialData defaultData].extConfig.wechatSessionData.shareImage = image;
-                                             }
-                                         });
+                                            callback:^(NSError *error, UIImage *image) {
+                                                if(image == nil)
+                                                {
+                                                    return;
+                                                }
+                                                dispatch_async(dispatch_get_main_queue(), ^{
+                                                    [UMSocialData defaultData].extConfig.wechatSessionData.url= [[dic objectForKey:@"url"] stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+                                                    [UMSocialData defaultData].extConfig.wechatSessionData.title= [dic objectForKey:@"title"];
+                                                    [UMSocialData defaultData].extConfig.wechatSessionData.shareText= [dic objectForKey:@"content"];
+                                                    [UMSocialData defaultData].extConfig.wechatSessionData.wxMessageType = UMSocialWXMessageTypeWeb;
+                                                    if(error == nil)
+                                                    {
+                                                        [UMSocialData defaultData].extConfig.wechatSessionData.shareImage = image;
+                                                    }
+                                                });
 
-                                     }];
+                                            }];
 }
 
 RCT_EXPORT_METHOD(setWechatTimelineData:(NSDictionary*)dic)
@@ -172,23 +179,23 @@ RCT_EXPORT_METHOD(setWechatTimelineData:(NSDictionary*)dic)
     __weak RCTUmengShare *weakSelf = self;
     NSURLRequest *urlRequest = [NSURLRequest requestWithURL:[NSURL URLWithString:source.imageURL.absoluteString]];
     [self.bridge.imageLoader loadImageWithURLRequest:urlRequest
-                                     callback:^(NSError *error, UIImage *image) {
-                                         if(image == nil)
-                                         {
-                                             return;
-                                         }
-                                         dispatch_async(dispatch_get_main_queue(), ^{
-                                             [UMSocialData defaultData].extConfig.wechatTimelineData.url= [[dic objectForKey:@"url"] stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
-                                             [UMSocialData defaultData].extConfig.wechatTimelineData.title= [dic objectForKey:@"title"];
-                                             [UMSocialData defaultData].extConfig.wechatTimelineData.shareText= [dic objectForKey:@"content"];
-                                             [UMSocialData defaultData].extConfig.wechatTimelineData.wxMessageType = UMSocialWXMessageTypeWeb;
-                                             if(error == nil)
-                                             {
-                                                 [UMSocialData defaultData].extConfig.wechatTimelineData.shareImage = image;
-                                             }
-                                         });
+                                            callback:^(NSError *error, UIImage *image) {
+                                                if(image == nil)
+                                                {
+                                                    return;
+                                                }
+                                                dispatch_async(dispatch_get_main_queue(), ^{
+                                                    [UMSocialData defaultData].extConfig.wechatTimelineData.url= [[dic objectForKey:@"url"] stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+                                                    [UMSocialData defaultData].extConfig.wechatTimelineData.title= [dic objectForKey:@"title"];
+                                                    [UMSocialData defaultData].extConfig.wechatTimelineData.shareText= [dic objectForKey:@"content"];
+                                                    [UMSocialData defaultData].extConfig.wechatTimelineData.wxMessageType = UMSocialWXMessageTypeWeb;
+                                                    if(error == nil)
+                                                    {
+                                                        [UMSocialData defaultData].extConfig.wechatTimelineData.shareImage = image;
+                                                    }
+                                                });
 
-                                     }];
+                                            }];
 }
 
 RCT_EXPORT_METHOD(setWechatFavoriteData:(NSDictionary*)dic)
@@ -197,23 +204,23 @@ RCT_EXPORT_METHOD(setWechatFavoriteData:(NSDictionary*)dic)
     __weak RCTUmengShare *weakSelf = self;
     NSURLRequest *urlRequest = [NSURLRequest requestWithURL:[NSURL URLWithString:source.imageURL.absoluteString]];
     [self.bridge.imageLoader loadImageWithURLRequest:urlRequest
-                                     callback:^(NSError *error, UIImage *image) {
-                                         if(image == nil)
-                                         {
-                                             return;
-                                         }
-                                         dispatch_async(dispatch_get_main_queue(), ^{
-                                             [UMSocialData defaultData].extConfig.wechatFavoriteData.url= [[dic objectForKey:@"url"] stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
-                                             [UMSocialData defaultData].extConfig.wechatFavoriteData.title= [dic objectForKey:@"title"];
-                                             [UMSocialData defaultData].extConfig.wechatFavoriteData.shareText= [dic objectForKey:@"content"];
-                                             [UMSocialData defaultData].extConfig.wechatFavoriteData.wxMessageType = UMSocialWXMessageTypeWeb;
-                                             if(error == nil)
-                                             {
-                                                 [UMSocialData defaultData].extConfig.wechatFavoriteData.shareImage = image;
-                                             }
-                                         });
+                                            callback:^(NSError *error, UIImage *image) {
+                                                if(image == nil)
+                                                {
+                                                    return;
+                                                }
+                                                dispatch_async(dispatch_get_main_queue(), ^{
+                                                    [UMSocialData defaultData].extConfig.wechatFavoriteData.url= [[dic objectForKey:@"url"] stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+                                                    [UMSocialData defaultData].extConfig.wechatFavoriteData.title= [dic objectForKey:@"title"];
+                                                    [UMSocialData defaultData].extConfig.wechatFavoriteData.shareText= [dic objectForKey:@"content"];
+                                                    [UMSocialData defaultData].extConfig.wechatFavoriteData.wxMessageType = UMSocialWXMessageTypeWeb;
+                                                    if(error == nil)
+                                                    {
+                                                        [UMSocialData defaultData].extConfig.wechatFavoriteData.shareImage = image;
+                                                    }
+                                                });
 
-                                     }];
+                                            }];
 }
 
 RCT_EXPORT_METHOD(setSinaData:(NSDictionary*)dic)
@@ -222,42 +229,42 @@ RCT_EXPORT_METHOD(setSinaData:(NSDictionary*)dic)
     __weak RCTUmengShare *weakSelf = self;
     NSURLRequest *urlRequest = [NSURLRequest requestWithURL:[NSURL URLWithString:source.imageURL.absoluteString]];
     [self.bridge.imageLoader loadImageWithURLRequest:urlRequest
-                                     callback:^(NSError *error, UIImage *image) {
-                                         if(image == nil)
-                                         {
-                                             return;
-                                         }
-                                         dispatch_async(dispatch_get_main_queue(), ^{
-                                             [UMSocialData defaultData].extConfig.sinaData.shareText= [NSString stringWithFormat:@"%@ %@ %@",[dic objectForKey:@"title"],[dic objectForKey:@"content"],[dic objectForKey:@"url"]];
-                                             if(error == nil)
-                                             {
-                                                 [UMSocialData defaultData].extConfig.sinaData.shareImage = image;
-                                             }
-                                         });
+                                            callback:^(NSError *error, UIImage *image) {
+                                                if(image == nil)
+                                                {
+                                                    return;
+                                                }
+                                                dispatch_async(dispatch_get_main_queue(), ^{
+                                                    [UMSocialData defaultData].extConfig.sinaData.shareText= [NSString stringWithFormat:@"%@ %@ %@",[dic objectForKey:@"title"],[dic objectForKey:@"content"],[dic objectForKey:@"url"]];
+                                                    if(error == nil)
+                                                    {
+                                                        [UMSocialData defaultData].extConfig.sinaData.shareImage = image;
+                                                    }
+                                                });
 
-                                     }];
+                                            }];
 }
 
 RCT_EXPORT_METHOD(presentSnsIconSheetView:(NSString*)content imageSource:(RCTImageSource*)imageSource)
 {
     NSURLRequest *urlRequest = [NSURLRequest requestWithURL:[NSURL URLWithString:imageSource.imageURL.absoluteString]];
     [self.bridge.imageLoader loadImageWithURLRequest:urlRequest
-                                     callback:^(NSError *error, UIImage *image) {
-                                         UIImage* tempImage = image;
-                                         if(error)
-                                         {
-                                             tempImage = nil;
-                                         }
-                                         dispatch_async(dispatch_get_main_queue(), ^{
-                                             [UMSocialSnsService presentSnsIconSheetView:self.rootViewController
-                                                                                  appKey:self.umengAppKey
-                                                                               shareText:content
-                                                                              shareImage:tempImage
-                                                                         shareToSnsNames:@[UMShareToWechatSession,UMShareToWechatTimeline,UMShareToWechatFavorite,UMShareToQQ,UMShareToQzone,UMShareToSina,UMShareToEmail,UMShareToSms]
-                                                                                delegate:nil];
-                                         });
+                                            callback:^(NSError *error, UIImage *image) {
+                                                UIImage* tempImage = image;
+                                                if(error)
+                                                {
+                                                    tempImage = nil;
+                                                }
+                                                dispatch_async(dispatch_get_main_queue(), ^{
+                                                    [UMSocialSnsService presentSnsIconSheetView:self.rootViewController
+                                                                                         appKey:self.umengAppKey
+                                                                                      shareText:content
+                                                                                     shareImage:tempImage
+                                                                                shareToSnsNames:@[UMShareToWechatSession,UMShareToWechatTimeline,UMShareToWechatFavorite,UMShareToQQ,UMShareToQzone,UMShareToSina,UMShareToEmail,UMShareToSms]
+                                                                                       delegate:nil];
+                                                });
 
-                                     }];
+                                            }];
 
 }
 @end
