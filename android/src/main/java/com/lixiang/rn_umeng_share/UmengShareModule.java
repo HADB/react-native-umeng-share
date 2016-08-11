@@ -74,7 +74,7 @@ public class UmengShareModule extends ReactContextBaseJavaModule {
     {
         final SHARE_MEDIA[] displaylist = new SHARE_MEDIA[]
                 {
-                        SHARE_MEDIA.WEIXIN,SHARE_MEDIA.WEIXIN_CIRCLE, SHARE_MEDIA.QQ,SHARE_MEDIA.QZONE
+                        SHARE_MEDIA.WEIXIN,SHARE_MEDIA.WEIXIN_CIRCLE, SHARE_MEDIA.QQ,SHARE_MEDIA.QZONE,SHARE_MEDIA.SINA
                 };
         final Activity tempActivity = this.getCurrentActivity();
         final Context tempContext = this.getReactApplicationContext();
