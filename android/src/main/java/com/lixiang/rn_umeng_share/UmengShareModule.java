@@ -96,6 +96,7 @@ public class UmengShareModule extends ReactContextBaseJavaModule {
                                 bitmap = BitmapFactory.decodeFile(tempUrlString);
                             }
                             image = new UMImage(tempActivity, bitmap);
+                            bitmap.recycle();
                         }
                         new ShareAction(tempActivity).setDisplayList(displaylist)
                                 .withText(finalContent)
