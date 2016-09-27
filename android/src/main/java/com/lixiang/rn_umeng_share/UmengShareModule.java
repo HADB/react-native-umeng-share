@@ -128,13 +128,6 @@ public class UmengShareModule extends ReactContextBaseJavaModule {
         return id;
     }
 
-    private
-    @Nullable
-    Drawable getResourceDrawable(Context context, @Nullable String name) {
-        int resId = getResourceDrawableId(context, name);
-        return resId > 0 ? context.getResources().getDrawable(resId) : null;
-    }
-
     private Uri getResourceDrawableUri(Context context, @Nullable String name) {
         int resId = getResourceDrawableId(context, name);
         return resId > 0 ? new Uri.Builder()
