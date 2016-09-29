@@ -9,9 +9,7 @@ android {
         targetSdkVersion 23
         versionCode 1
         versionName "1.0"
-        manifestPlaceholders = [UmengAppKey: "",
-                                QQAppId    : ""
-        ]
+        manifestPlaceholders = project.ext.manifestPlaceholders
     }
     buildTypes {
         release {
