@@ -11,18 +11,18 @@
 * 在`Appdelegate.m`中添加如下代码
 
   ```objective-c
-    ...
-    #import "RCTUmengShare.h"
-    ...
-    - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
-    {
-          self.window = [[UIWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];
-          UIViewController *rootViewController = [UIViewController new];
-          rootViewController.view = rootView;
-          self.window.rootViewController = rootViewController;
-          [self.window makeKeyAndVisible];
-          [RCTUmengShare setRootController:rootViewController]; //加入这行代码
-    }
+  ...
+  #import "RCTUmengShare.h"
+  ...
+  - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
+  {
+        self.window = [[UIWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];
+        UIViewController *rootViewController = [UIViewController new];
+        rootViewController.view = rootView;
+        self.window.rootViewController = rootViewController;
+        [self.window makeKeyAndVisible];
+        [RCTUmengShare setRootController:rootViewController]; //加入这行代码
+  }
   ```
 
 * 在XCode project navigator 中右键单击 [你的项目名称] ->Add Files to [你的项目名称]添加第三方分享的依赖文件
@@ -36,90 +36,90 @@
 * 配置`info.plist`
 
   ```xml
-    <?xml version="1.0" encoding="UTF-8"?>
-    <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
-    <plist version="1.0">
-        <dict>
-            ...
-            <key>CFBundleURLTypes</key>
-            <array>
-                <dict>
-                    <key>CFBundleURLName</key>
-                    <string>weixin</string>
-                    <key>CFBundleURLSchemes</key>
-                    <array>
-                        <string>你的微信appId</string>
-                    </array>
-                </dict>
-                <dict>
-                    <key>CFBundleTypeRole</key>
-                    <string>Editor</string>
-                    <key>CFBundleURLSchemes</key>
-                    <array>
-                        <string>eqianzhuang</string>
-                    </array>
-                </dict>
-                <dict>
-                    <key>CFBundleTypeRole</key>
-                    <string>Editor</string>
-                    <key>CFBundleURLSchemes</key>
-                    <array>
-                        <string>tencent'你的qq APPid'</string>
-                    </array>
-                </dict>
-                <dict>
-                    <key>CFBundleTypeRole</key>
-                    <string>Editor</string>
-                    <key>CFBundleURLSchemes</key>
-                    <array>
-                        <string>sina.54535988fd98c5f10000726d</string>
-                    </array>
-                </dict>
-                <dict>
-                    <key>CFBundleTypeRole</key>
-                    <string>Editor</string>
-                    <key>CFBundleURLSchemes</key>
-                    <array>
-                        <string>QQ41D42AF9</string>
-                    </array>
-                </dict>
-            </array>
-            <key>LSApplicationQueriesSchemes</key>
-            <array>
-                <string>wechat</string>
-                <string>weixin</string>
-                <string>sinaweibohd</string>
-                <string>sinaweibo</string>
-                <string>sinaweibosso</string>
-                <string>weibosdk</string>
-                <string>weibosdk2.5</string>
-                <string>mqqapi</string>
-                <string>mqq</string>
-                <string>mqqOpensdkSSoLogin</string>
-                <string>mqqconnect</string>
-                <string>mqqopensdkdataline</string>
-                <string>mqqopensdkgrouptribeshare</string>
-                <string>mqqopensdkfriend</string>
-                <string>mqqopensdkapi</string>
-                <string>mqqopensdkapiV2</string>
-                <string>mqqopensdkapiV3</string>
-                <string>mqzoneopensdk</string>
-                <string>wtloginmqq</string>
-                <string>wtloginmqq2</string>
-                <string>mqqwpa</string>
-                <string>mqzone</string>
-                <string>mqzonev2</string>
-                <string>mqzoneshare</string>
-                <string>wtloginqzone</string>
-                <string>mqzonewx</string>
-                <string>mqzoneopensdkapiV2</string>
-                <string>mqzoneopensdkapi19</string>
-                <string>mqzoneopensdkapi</string>
-                <string>mqzoneopensdk</string>
-            </array>
-        ...
-        </dict>
-    </plist>
+  <?xml version="1.0" encoding="UTF-8"?>
+  <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+  <plist version="1.0">
+      <dict>
+          ...
+          <key>CFBundleURLTypes</key>
+          <array>
+              <dict>
+                  <key>CFBundleURLName</key>
+                  <string>weixin</string>
+                  <key>CFBundleURLSchemes</key>
+                  <array>
+                      <string>你的微信appId</string>
+                  </array>
+              </dict>
+              <dict>
+                  <key>CFBundleTypeRole</key>
+                  <string>Editor</string>
+                  <key>CFBundleURLSchemes</key>
+                  <array>
+                      <string>eqianzhuang</string>
+                  </array>
+              </dict>
+              <dict>
+                  <key>CFBundleTypeRole</key>
+                  <string>Editor</string>
+                  <key>CFBundleURLSchemes</key>
+                  <array>
+                      <string>tencent'你的qq APPid'</string>
+                  </array>
+              </dict>
+              <dict>
+                  <key>CFBundleTypeRole</key>
+                  <string>Editor</string>
+                  <key>CFBundleURLSchemes</key>
+                  <array>
+                      <string>sina.54535988fd98c5f10000726d</string>
+                  </array>
+              </dict>
+              <dict>
+                  <key>CFBundleTypeRole</key>
+                  <string>Editor</string>
+                  <key>CFBundleURLSchemes</key>
+                  <array>
+                      <string>QQ41D42AF9</string>
+                  </array>
+              </dict>
+          </array>
+          <key>LSApplicationQueriesSchemes</key>
+          <array>
+              <string>wechat</string>
+              <string>weixin</string>
+              <string>sinaweibohd</string>
+              <string>sinaweibo</string>
+              <string>sinaweibosso</string>
+              <string>weibosdk</string>
+              <string>weibosdk2.5</string>
+              <string>mqqapi</string>
+              <string>mqq</string>
+              <string>mqqOpensdkSSoLogin</string>
+              <string>mqqconnect</string>
+              <string>mqqopensdkdataline</string>
+              <string>mqqopensdkgrouptribeshare</string>
+              <string>mqqopensdkfriend</string>
+              <string>mqqopensdkapi</string>
+              <string>mqqopensdkapiV2</string>
+              <string>mqqopensdkapiV3</string>
+              <string>mqzoneopensdk</string>
+              <string>wtloginmqq</string>
+              <string>wtloginmqq2</string>
+              <string>mqqwpa</string>
+              <string>mqzone</string>
+              <string>mqzonev2</string>
+              <string>mqzoneshare</string>
+              <string>wtloginqzone</string>
+              <string>mqzonewx</string>
+              <string>mqzoneopensdkapiV2</string>
+              <string>mqzoneopensdkapi19</string>
+              <string>mqzoneopensdkapi</string>
+              <string>mqzoneopensdk</string>
+          </array>
+      ...
+      </dict>
+  </plist>
   ```
 ## 手动添加Android平台
 * 在`android/setting.gradle`中添加
