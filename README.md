@@ -1,40 +1,42 @@
-#rn-umeng-share
-# 安装
-目前支持微信和qq分享
+#react-native-umeng-share
 
-`npm install --save rn-umeng-share@https://github.com/sparkdreamstudio/rn-umeng-share.git`
-# 手动添加到XCode
-* 在XCode project navigator 中右键单击 Libraries -> Add Files to [你的项目名称] 进入 node_module/rn-umeng-share/ios 将 .xcodeproj 文件添加进来，并点击[你的项目名称] －> Build Phases 添加 Link Binary libRCTUmengshare.a
-* TARGETS->BUILD SETTING->Framework Search Paths 添加 $(SRCROOT)/../node_modules/rn-umeng-share/ios/RCTUmengShare/UmengSocial/UMSocial_Sdk_Extra_Frameworks/TencentOpenAPI
+目前支持分享到：微信好友、微信朋友圈、微信收藏、QQ、QQ空间、微博、邮件、短信
+
+##安装
+`npm install --save react-native-umeng-share@https://github.com/HADB/react-native-umeng-share.git`
+
+##手动添加到XCode
+* 在XCode project navigator 中右键单击 Libraries -> Add Files to [你的项目名称] 进入 node_module/react-native-umeng-share/ios 将 .xcodeproj 文件添加进来，并点击[你的项目名称] －> Build Phases 添加 Link Binary libRCTUmengshare.a
+* TARGETS->BUILD SETTING->Framework Search Paths 添加 $(SRCROOT)/../node_modules/react-native-umeng-share/ios/RCTUmengShare/UmengSocial/UMSocial_Sdk_Extra_Frameworks/TencentOpenAPI
 * 在`Appdelegate.m`中添加如下代码
 
-	```
-	...
-	#import "RCTUmengShare.h"
-	...
-	- (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
-	{
+  ```
+  ...
+  #import "RCTUmengShare.h"
+  ...
+  - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
+  {
   		self.window = [[UIWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];
   		UIViewController *rootViewController = [UIViewController new];
   		rootViewController.view = rootView;
   		self.window.rootViewController = rootViewController;
   		[self.window makeKeyAndVisible];
   		[RCTUmengShare setRootController:rootViewController]; //加入这行代码
-	}
-	```
-	
+  }
+  ```
+
 * 在XCode project navigator 中右键单击 [你的项目名称] ->Add Files to [你的项目名称]添加第三方分享的依赖文件
 
 
 	平台名称    | 文件路径
 	-------------|------------
-	微信          | node_module/rn-umeng-share/ios/RCTUumengShare/UmengSocial/UMSocial_Sdk_Extra_Frameworks/Wechat/libSocialWechat.a 和 libWeChatSDK.a
-	新浪微博      |node_module/rn-umeng-share/ios/RCTUumengShare/UmengSocial/UMSocial_Sdk_Extra_Frameworks/SinaSSO/libSocialSinaSSO.a libWeiboSDK.a 和 WeiboSDK.bundle
-	QQ           |node_module/rn-umeng-share/ios/RCTUumengShare/UmengSocial/UMSocial_Sdk_Extra_Frameworks/TencentOpenAPI／libSocialQQ.a TencentOpenApi_IOS_Bundle.bundle 和 TencentOpenAPI.framework
+	微信          | node_module/react-native-umeng-share/ios/RCTUumengShare/UmengSocial/UMSocial_Sdk_Extra_Frameworks/Wechat/libSocialWechat.a 和 libWeChatSDK.a
+	新浪微博      |node_module/react-native-umeng-share/ios/RCTUumengShare/UmengSocial/UMSocial_Sdk_Extra_Frameworks/SinaSSO/libSocialSinaSSO.a libWeiboSDK.a 和 WeiboSDK.bundle
+	QQ           |node_module/react-native-umeng-share/ios/RCTUumengShare/UmengSocial/UMSocial_Sdk_Extra_Frameworks/TencentOpenAPI／libSocialQQ.a TencentOpenApi_IOS_Bundle.bundle 和 TencentOpenAPI.framework
 
 ＊ 配置`info.plist`
 
-	```
+	​```
 	<?xml version="1.0" encoding="UTF-8"?>
 	<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 	<plist version="1.0">
@@ -119,45 +121,45 @@
 	</dict>
 	</plist>
 	
-	```
+	​```
 # 手动添加android平台
 * 在`android/setting.gradle`中添加
 
-	```bash
-	include ':rn-umeng-share'
-	project(':rn-umeng-share').projectDir = new File(rootProject.projectDir, '../node_modules/rn-umeng-share/android')
-	```
+  ```bash
+  include ':react-native-umeng-share'
+  project(':react-native-umeng-share').projectDir = new File(rootProject.projectDir, '../node_modules/react-native-umeng-share/android')
+  ```
 * 在`android/app/build.gradle`中的添加
 
-	```bash
-	android {
-	...
-		defaultConfig {
-		...
-			manifestPlaceholders = [
-			...
-				Umeng_KEY:你的UmengAPPID,
-				qqAppId:"tencent"+qq appId,
-			..
-			］
-		...
-		｝
-	...
-	｝
-	dependencies {
-		...
-		compile project(':rn-umeng-share')
-		...
-	}
-	```
-* 在`android/app/src/main/java/[...]/MainActivity.java`中
-	
-	* 文件顶部添加 `import com.lixiang.rn_umeng_share.*;`
-	* 在`getPackages()`方法中添加 `new UmengSharePackage()`
-
-# 示例
+```bash
+  android {
+  ...
+  	defaultConfig {
+  	...
+  		manifestPlaceholders = [
+  		...
+  			Umeng_KEY:你的UmengAPPID,
+  			qqAppId:"tencent"+qq appId,
+  		..
+  		］
+  	...
+  	｝
+  ...
+  ｝
+  dependencies {
+  	...
+  	compile project(':react-native-umeng-share')
+  	...
+  }
 ```
-import UmengShare from 'rn-umeng-share'
+* 在`android/app/src/main/java/[...]/MainActivity.java`中
+
+  * 文件顶部添加 `import com.lixiang.rn_umeng_share.*;`
+  * 在`getPackages()`方法中添加 `new UmengSharePackage()`
+
+##示例
+```
+import UmengShare from 'react-native-umeng-share'
 
 ...
 
@@ -201,10 +203,10 @@ UmengShare.openShareAction(content,title,url,require('../someAssetImage.png'))
 UmengShare.openShareAction(content,title,url,{uri:'http://....someInternetImage.png'})
 
 ```
-	
-
- 
 
 
 
+## 感谢
+
+[https://github.com/sparkdreamstudio/rn-umeng-share](https://github.com/sparkdreamstudio/rn-umeng-share)
 

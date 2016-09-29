@@ -10,7 +10,13 @@ ios/Build
 #android
 android/build
 android/proguard-rules.pro
-android/rn-umeng-share.iml
+*.iml
+android/gradlew
+android/gradlew.bat
+android/gradle
+android/local.properties
 
 #git
 .npmignore
+
+.idea
