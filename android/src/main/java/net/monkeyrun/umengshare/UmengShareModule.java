@@ -1,4 +1,4 @@
-package com.lixiang.rn_umeng_share;
+package net.monkeyrun.umengshare;
 
 import android.app.Activity;
 import android.content.Context;

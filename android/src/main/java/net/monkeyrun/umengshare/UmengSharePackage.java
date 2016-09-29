@@ -1,4 +1,4 @@
-package com.lixiang.rn_umeng_share;
+package net.monkeyrun.umengshare;
 
 import com.facebook.react.bridge.JavaScriptModule;
 import com.facebook.react.bridge.NativeModule;
